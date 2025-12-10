@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u n me</title>
+    <style>
+        /* =================================
+           0. CSS HUJAN LOVE
+           ================================= */
+        #love-rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .falling-love {
+            position: absolute;
+            color: white;
+            font-size: 15px;
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-100px) rotate(0deg); 
+            }
+            10% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(100vh) rotate(360deg); /* Ditambahkan rotasi */
+            }
+        }
+        
+        /* =================================
+           1. CSS UTAMA & RESPONSIVITAS
+           ================================= */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #c3c3f8;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        /* Container Utama Grid */
+        .card-container {
+            max-width: 1350px; 
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 20px; 
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Tambahkan transisi untuk Galeri */
+        }
+
+        /* Styling Kartu */
+        .memory-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px; 
+            background-color: #ccc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            font-size: 13px;
+            font-weight: bold;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 60px;
+        }
+
+        .read-more {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #845c95;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .read-more-arrow {
+            width: 30px;
+            height: 30px;
+            background-color: #9b59b6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+        }
+        
+        /* Warna Khusus Kartu */
+        .card-2 .read-more { color: #2ecc71; }
+        .card-2 .read-more-arrow { background-color: #2ecc71; }
+        .card-2 .image-label { background-color: #2ecc71; }
+        .card-3 .read-more { color: #e67e22; }
+        .card-3 .read-more-arrow { background-color: #e67e22; }
+        .card-3 .image-label { background-color: #e67e22; }
+        .card-4 .read-more { color: #3498db; }
+        .card-4 .read-more-arrow { background-color: #3498db; }
+        .card-4 .image-label { background-color: #3498db; }
+        .card-5 .read-more { color: #8e44ad; }
+        .card-5 .read-more-arrow { background-color: #8e44ad; }
+        .card-5 .image-label { background-color: #8e44ad; }
+
+
+        /* =================================
+           2. CSS DETAIL VIEW & INTERAKSI (SOLUSI)
+           ================================= */
+        
+        .detail-container {
+            display: none; 
+            padding-top: 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding-bottom: 30px;
+            /* Tambahkan transisi masuk */
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+        
+        /* 🟢 AKTIVASI TAMPILKAN DETAIL */
+        #detail1:target, #detail2:target, #detail3:target, #detail4:target, #detail5:target { 
+            display: block; 
+            /* Animasi Masuk: Scale up dan Fade in */
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* 🔴 AKTIVASI SEMBUNYIKAN GALERI DENGAN ANIMASI KELUAR */
+        #detail1:target ~ #galeri-view, #detail2:target ~ #galeri-view, #detail3:target ~ #galeri-view, #detail4:target ~ #galeri-view, #detail5:target ~ #galeri-view { 
+            display: none; /* Harus menggunakan display: none agar elemen benar-benar hilang */
+        }
+
+        /* Karena kita tidak bisa menganimasikan display: none, kita gunakan JS untuk transisi keluar. 
+           Namun, untuk solusi murni CSS, logika `:target ~` ini adalah yang benar. */
+
+        .hero-image {
+            width: 100%;
+            height: 450px;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .content-body {
+            padding: 0 40px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin: 20px 0 30px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .meta-detail {
+            border-left: 5px solid; 
+            padding-left: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .meta-detail span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        /* Responsif */
+        @media (max-width: 1350px) { 
+            .card-container { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 1000px) { 
+            .card-container { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 700px) { 
+            .card-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 450px) { 
+            .card-container { grid-template-columns: 1fr; }
+            .content-body { padding: 0 20px; }
+            .hero-image { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="love-rain-container"></div>
+    
+
+    <div id="detail1" class="detail-container">
+        <div class="hero-image">
+            <img src="images/WhatsApp Image 2025-12-09 at 22.00.54_4bd0a20c.jpg" alt="Pemandangan Gunung Bromo">
+        </div>
+        <div class="content-body">
+            <a href="#galeri-view" class="back-button">Kembali</a>
+            <h1>Awal dari semuanya</h1>
+            <div class="meta-detail" style="border-color: #9b59b6;">
+                <span>📅 13 Mei 2024</span>
+                <span>📌 Bitung, Sulawesi Utara</span>
+            </div>
+            <p>Di malam -1 hari sebelum perpisahan, saat semuanya masih terasa biasa saja, kau tiba-tiba muncul di chat pribadiku setelah sekian lama menghilang; hanya sebuah pesan singkat, tapi entah bagaimana kata-kata itu membuat malam terasa lebih hangat, seakan waktu yang sempat menjauh tiba-tiba kembali mendekat hanya lewat satu pesan darimu.</p>
+        </div>
+    </div>
+    
+    <div id="detail2" class="detail-container">
+        <div class="hero-image">
+            <img src="images/WhatsApp Image 2025-12-09 at 22.00.53_c2d49685.jpg" alt="Foto Penghargaan">
+        </div>
+        <div class="content-body">
+            <a href="#galeri-view" class="back-button" style="background-color: #2ecc71;">Kembali</a>
+            <h1>Jarak, Detik, dan Sebuah Foto</h1>
+            <div class="meta-detail" style="border-color: #2ecc71;">
+                <span>📅 24 Maret 2024</span>
+                <span>📌 MAN</span>
+            </div>
+            <p>Waktu adalah ruang yang luas sekali. Hati manusia bertemu dengan berbagai kisah, canggung, dan penyesalan, seperti dia yang berdiri di depanku, setelah sekian lama kita memilih berjalan dalam keasingan. Kisah itu terbungkus rapi, sunyi, berjarak, dan menunggu, dan keberanian itu kini datang meruntuhkan tembok yang begitu lama kita bangun.</p>
+        </div>
+    </div>
+    
+    <div id="detail3" class="detail-container">
+        <div class="hero-image">
+            <img src="images/gi.jpg" alt="Foto Keluarga">
+        </div>
+        <div class="content-body">
+            <a href="#galeri-view" class="back-button" style="background-color: #e67e22;">Kembali</a>
+            <h1>Join Request dari Masa Lalu</h1>
+            <div class="meta-detail" style="border-color: #e67e22;">
+                <span>📅 28 Mei 2024</span>
+                <span>📌 Genshin Inpact</span>
+            </div>
+            <p>Barangkali, dunia ini terlalu sepi jika harus kujelajahi seorang diri. Namun hari ini, semesta digital itu kembali hangat. Dia, rekan seperjalanan yang lama tak berkabar, tiba-tiba mengetuk pintu duniaku, meminta izin untuk masuk dan berlari bersama lagi. Kami kembali menyeberangi lautan bintang, namun diam-diam, kami berdua tahu bahwa musuh terbesar saat ini bukanlah kalah rate off, melainkan kecanggungan karena akhirnya bisa 'bertemu' lagi di satu koordinat yang sama.</p>
+        </div>
+    </div>
+
+    <div id="detail4" class="detail-container">
+        <div class="hero-image">
+            <img src="images/gi2.jpg" alt="Foto Pertemuan">
+        </div>
+        <div class="content-body">
+            <a href="#galeri-view" class="back-button" style="background-color: #3498db;">Kembali</a>
+            <h1>Selalu Berjalan Sampai Hari Ini</h1>
+            <div class="meta-detail" style="border-color: #3498db;">
+                <span>📅 -</span>
+                <span>📌 -</span>
+            </div>
+            <p>Nyatanya, cerita yang terukir di antara kami bukanlah sebuah naskah yang mengenal kata tamat, apalagi babak atau episode terakhir. Mungkin u bakal geli kalo baca ini:v</p>
+        </div>
+    </div>
+
+    <div id="galeri-view">
+        <header style="text-align: center; margin-bottom: 40px; position: relative;">
+            <a href="login.html" style="position: absolute; top: -10px; right: 0; background-color: #e74c3c; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                Logout
+            </a>
+            <h1>📸</h1>
+            <p>"Bumi luas sekali, tapi untungnya kita ketemu."</p>
+        </header>
+
+        <div class="card-container">
+
+            <div class="memory-card">
+                <div class="card-image">
+                    <img src="images/WhatsApp Image 2025-12-09 at 22.00.54_4bd0a20c.jpg" alt="Foto Kenangan 1">
+                    <div class="image-label" style="background-color: #9b59b6;">AWAL</div>
+                </div>
+                <div class="card-content">
+                    <h3>Awal dari Semuanya</h3>
+                    <p>Di malam -1 hari sebelum perpisahan, saat semuanya masih terasa biasa saja, kau tiba-tiba muncul di chat pribadiku setelah sekian lama menghilang</p>
+                    <a href="#detail1" class="read-more">
+                        click disini
+                        <span class="read-more-arrow" style="background-color: #9b59b6;">&gt;</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="memory-card card-2">
+                <div class="card-image">
+                    <img src="images/WhatsApp Image 2025-12-09 at 22.00.53_c2d49685.jpg" alt="Foto Kenangan 2">
+                    <div class="image-label">REUNI</div>
+                </div>
+                <div class="card-content">
+                    <h3>Jarak, Detik, dan Sebuah Foto</h3>
+                    <p>Waktu adalah ruang yang luas sekali. Hati manusia bertemu dengan rindu-rindu yang banyak,</p>
+                    <a href="#detail2" class="read-more">
+                        click disini
+                        <span class="read-more-arrow">&gt;</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="memory-card card-3">
+                <div class="card-image">
+                    <img src="images/gi.jpg" alt="Foto Kenangan 3">
+                    <div class="image-label">JEDA</div>
+                </div>
+                <div class="card-content">
+                    <h3>Join Request dari Masa Lalu</h3>
+                    <p> Barangkali, dunia ini terlalu sepi jika harus kujelajahi seorang diri. Namun hari ini</p>
+                    <a href="#detail3" class="read-more">
+                        click disini
+                        <span class="read-more-arrow">&gt;</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="memory-card card-4">
+                <div class="card-image">
+                    <img src="images/gi2.jpg" alt="Foto Kenangan 4">
+                    <div class="image-label">TAKDIR</div>
+                </div>
+                <div class="card-content">
+                    <h3>Selalu Berjalan Sampai Hari Ini</h3>
+                    <p>Nyatanya, cerita yang terukir di antara kami bukanlah sebuah naskah yang mengenal kata tamat, apalagi babak atau episode terakhir.</p>
+                    <a href="#detail4" class="read-more">
+                        click disini
+                        <span class="read-more-arrow">&gt;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('love-rain-container');
+            const totalLoves = 40; 
+
+            for (let i = 0; i < totalLoves; i++) {
+                createLove(container);
+            }
+        });
+
+        function createLove(container) {
+            const love = document.createElement('div');
+            love.classList.add('falling-love');
+            love.innerHTML = '🤍';
+
+            const startPosition = Math.random() * 100; 
+            const duration = Math.random() * 10 + 5; 
+            const delay = Math.random() * 10; 
+
+            // Atur ukuran hati sedikit acak
+            const size = Math.random() * 10 + 10; // antara 10px hingga 20px
+            love.style.fontSize = `${size}px`;
+
+            love.style.left = `${startPosition}vw`;
+            love.style.animationDuration = `${duration}s`;
+            love.style.animationDelay = `${delay}s`;
+            
+            container.appendChild(love);
+        }
+    </script>
+</body>
+</html>
