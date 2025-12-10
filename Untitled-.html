@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>u n me</title>
     <style>
-        /* =================================
-           1. CSS UTAMA & RESPONSIVITAS
-           ================================= */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -16,8 +13,6 @@
             color: #333;
             line-height: 1.7;
         }
-
-        /* Container Utama Grid */
         .card-container {
             max-width: 1350px; 
             margin: 0 auto;
@@ -25,8 +20,6 @@
             grid-template-columns: repeat(5, 1fr); 
             gap: 20px; 
         }
-
-        /* Styling Kartu */
         .memory-card {
             background-color: white;
             border-radius: 10px;
@@ -107,30 +100,21 @@
             line-height: 1;
         }
         
-        /* Warna Khusus Kartu 2 (Hijau) */
         .card-2 .read-more { color: #2ecc71; }
         .card-2 .read-more-arrow { background-color: #2ecc71; }
         .card-2 .image-label { background-color: #2ecc71; }
         
-        /* Warna Khusus Kartu 3 (Oranye) */
         .card-3 .read-more { color: #e67e22; }
         .card-3 .read-more-arrow { background-color: #e67e22; }
         .card-3 .image-label { background-color: #e67e22; }
 
-        /* Warna Khusus Kartu 4 (Biru) */
         .card-4 .read-more { color: #3498db; }
         .card-4 .read-more-arrow { background-color: #3498db; }
         .card-4 .image-label { background-color: #3498db; }
-
-        /* Warna Khusus Kartu 5 (Ungu Tua - BARU) */
+        
         .card-5 .read-more { color: #8e44ad; }
         .card-5 .read-more-arrow { background-color: #8e44ad; }
         .card-5 .image-label { background-color: #8e44ad; }
-
-
-        /* =================================
-           2. CSS DETAIL VIEW & INTERAKSI
-           ================================= */
         
         .detail-container {
             display: none; 
@@ -144,12 +128,10 @@
             padding-bottom: 30px;
         }
         
-        /* Tampilkan detail ketika di-target */
         #detail1:target, #detail2:target, #detail3:target, #detail4:target, #detail5:target { 
             display: block; 
         }
         
-        /* Sembunyikan galeri ketika detail di-target */
         #detail1:target ~ #galeri-view, #detail2:target ~ #galeri-view, #detail3:target ~ #galeri-view, #detail4:target ~ #galeri-view, #detail5:target ~ #galeri-view { 
             display: none;
         }
@@ -182,25 +164,23 @@
             transition: background-color 0.3s;
         }
         
-        /* Responsif */
-        @media (max-width: 1350px) { /* Layar medium: 4 kolom */
+        @media (max-width: 1350px) { 
             .card-container { grid-template-columns: repeat(4, 1fr); }
         }
-        @media (max-width: 1000px) { /* Layar kecil: 3 kolom */
+        @media (max-width: 1000px) { 
             .card-container { grid-template-columns: repeat(3, 1fr); }
         }
-        @media (max-width: 700px) { /* Tablet: 2 kolom */
+        @media (max-width: 700px) { 
             .card-container { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (max-width: 450px) { /* Mobile: 1 kolom */
+        @media (max-width: 450px) { 
             .card-container { grid-template-columns: 1fr; }
             .content-body { padding: 0 20px; }
             .hero-image { height: 300px; }
         }
 
-        /* Gaya Meta Detail (Anda mungkin lupa menambahkan ini sebelumnya) */
         .meta-detail {
-            border-left: 5px solid; /* Warna akan diambil dari style inline */
+            border-left: 5px solid; 
             padding-left: 15px;
             margin: 20px 0;
             font-size: 14px;
@@ -349,4 +329,5 @@
 
 </body>
 </html>
+
 
