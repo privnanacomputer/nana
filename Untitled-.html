@@ -19,11 +19,11 @@
 
         /* Container Utama Grid */
         .card-container {
-            max-width: 1350px; /* Lebar maksimum ditambah agar 5 kolom muat */
+            max-width: 1350px; 
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* DIUBAH: Menjadi 5 kolom */
-            gap: 20px; /* Jarak antar kolom dikurangi agar muat */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 20px; 
         }
 
         /* Styling Kartu */
@@ -42,7 +42,7 @@
 
         .card-image {
             width: 100%;
-            height: 180px; /* Tinggi gambar sedikit dikurangi agar kartu lebih ringkas */
+            height: 180px; 
             background-color: #ccc;
             position: relative;
             overflow: hidden;
@@ -197,6 +197,19 @@
             .content-body { padding: 0 20px; }
             .hero-image { height: 300px; }
         }
+
+        /* Gaya Meta Detail (Anda mungkin lupa menambahkan ini sebelumnya) */
+        .meta-detail {
+            border-left: 5px solid; /* Warna akan diambil dari style inline */
+            padding-left: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .meta-detail span {
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -262,8 +275,11 @@
     </div>
 
     <div id="galeri-view">
-        <header style="text-align: center; margin-bottom: 40px;">
-            <h1>📸</h1>
+        <header style="text-align: center; margin-bottom: 40px; position: relative;">
+            <a href="login.html" style="position: absolute; top: -10px; right: 0; background-color: #e74c3c; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                Logout
+            </a>
+            <h1>📸 Kenangan Kita</h1>
             <p>"Bumi luas sekali, tapi untungnya kita ketemu."</p>
         </header>
 
