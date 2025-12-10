@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login dulu mas</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Latar Belakang Gradien */
+            background: linear-gradient(to top right, #3498db, #c3c3f8); 
+            color: #333;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            color: #4a4a4a;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px; 
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-button:hover {
+            background-color: #2980b9;
+        }
+
+        .forgot-remember {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+
+        .forgot-remember a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        #error-message {
+            color: #e74c3c;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>USER LOGIN</h2>
+        
+        <form onsubmit="return validateLogin()">
+            <div class="input-group">
+                <span class="icon">👤</span>
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group">
+                <span class="icon">🔒</span>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            
+            <div id="error-message"></div>
+            
+            <div class="forgot-remember">
+                <div>
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember</label>
+                </div>
+                <a href="#"></a>
+            </div>
+            
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        
+        <p style="font-size: 12px; color: #999; margin-top: 30px;">welcome to my story ~~</p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            
+            // >>>>>> ATUR USERNAME DAN PASSWORD DI SINI <<<<<<
+            const CORRECT_USERNAME = "nana";
+            const CORRECT_PASSWORD = "awokawokawok";
+            // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+            errorMessage.style.display = 'none';
+
+            if (username === "" || password === "") {
+                errorMessage.textContent = "Diisi ya kocag!";
+                errorMessage.style.display = 'block';
+                return false; 
+            }
+
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                // REDIRECT KE NAMA FILE GALERI ANDA
+                window.location.href = "Untitled-.html"; 
+                return false; 
+            } else {
+                errorMessage.textContent = "Salah on ol";
+                errorMessage.style.display = 'block';
+                return false; 
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>
